@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"io"
 	"log"
 	"net/http"
@@ -10,13 +11,14 @@ import (
 
 func main() {
 
-	var isFirstRequest bool = true
+	url := flag.String("url", "http://localhost:3000", "checking url website")
 
-	firstRequest := &http.Response{}
+	var isFirstRequest bool = true
 	var fbody []byte
+	firstRequest := &http.Response{}
 
 	for {
-		resq, err := http.Get("http://192.168.11.8:3000")
+		resq, err := http.Get(*url)
 		if err != nil {
 			log.Fatal("HTTP protocol error")
 		}
